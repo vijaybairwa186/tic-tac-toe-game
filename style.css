@@ -1,0 +1,210 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Roboto&display=swap');
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Background Gradient */
+body {
+    background: linear-gradient(to right, #f9f1ff, #e6ccff);
+    transition: background 0.5s ease-in-out;
+}
+
+/* Navbar Styling */
+nav {
+    margin: 0;
+    padding: 0 12px;
+    background-color: rgb(37, 9, 37);
+    color: white;
+    height: 65px;
+    font-size: 27px;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar List */
+nav ul {
+    list-style-type: none;
+}
+
+/* Main Game Container */
+.gameContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+/* Grid Container */
+.container {
+    display: grid;
+    grid-template-rows: repeat(3, 10vw);
+    grid-template-columns: repeat(3, 10vw);
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+/* Each Box (Cell) */
+.box {
+    border: 2px solid black;
+    font-size: 8vw;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: popIn 0.5s ease;
+}
+
+/* Box Hover Effect */
+.box:hover {
+    background-color: rgb(242, 234, 250);
+    transform: scale(1.05);
+}
+
+/* When a box is clicked, animate */
+.box.clicked {
+    animation: bounce 0.4s ease;
+}
+
+/* Info Text */
+.info {
+    font-size: 22px;
+}
+
+/* Game Info Panel */
+.gameInfo {
+    padding: 0 34px;
+    font-family: 'Baloo Bhaina 2', cursive;
+    margin-top: 34px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading Styling */
+.gameInfo h1 {
+    font-size: 2.5rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Image Styling (Winning Image) */
+.imgbox img {
+    width: 0;
+    transition: width 1s ease-in-out;
+}
+
+/* Grid Borders */
+.br-0 {
+    border-right: 0;
+}
+
+.bl-0 {
+    border-left: 0;
+}
+
+.bt-0 {
+    border-top: 0;
+}
+
+.bb-0 {
+    border-bottom: 0;
+}
+
+/* Reset Button Styling */
+#reset {
+    margin: 0 23px;
+    padding: 1px 18px;
+    background: #f3e7f9;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Baloo Bhaina 2';
+    font-size: 15px;
+    font-weight: bolder;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#reset:hover {
+    background-color: #e0cfee;
+    transform: scale(1.05);
+}
+
+/* Style for X and O colors */
+.boxtext.X {
+    color: blue;
+    font-weight: bold;
+    animation: appearColor 0.3s ease;
+}
+
+.boxtext.O {
+    color: red;
+    font-weight: bold;
+    animation: appearColor 0.3s ease;
+}
+
+/* Optional: smooth fade+scale when X or O appears */
+@keyframes appearColor {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 950px) {
+    .container {
+        grid-template-rows: repeat(3, 20vw);
+        grid-template-columns: repeat(3, 20vw);
+    }
+
+    .gameInfo h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animations */
+
+/* Box pop-in animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Box bounce on click */
+@keyframes bounce {
+    0% {
+        transform: scale(0.6);
+    }
+    60% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Fade in for heading/info */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
