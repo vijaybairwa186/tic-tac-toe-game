@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400;700&family=Roboto:wght@400;700&display=swap");
 
 * {
   margin: 0;
@@ -6,127 +6,233 @@
   box-sizing: border-box;
 }
 
-body {
-  background: linear-gradient(to right, #f9f1ff, #e6ccff);
-  transition: background 0.5s ease-in-out;
+:root {
+  --primary-dark: rgb(50, 10, 50);
+  --primary-light: #f9f1ff;
+  --secondary-light: #e6ccff;
+  --accent-color: rgb(220, 200, 240);
+  --button-bg: #e5baff;
+  --button-hover-bg: #d09eff;
+  --border-color: #8a2be2;
+  --player-x-color: #007bff;
+  --player-o-color: #dc3545;
+  --win-highlight-color: #ffeb3b;
+  --text-color-dark: #333;
 }
 
-nav {
-  margin: 0;
-  padding: 0 12px;
-  background-color: rgb(37, 9, 37);
+body {
+  background: linear-gradient(to right, var(--primary-light), var(--secondary-light));
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color-dark);
+  overflow-x: hidden;
+}
+
+header {
+  background-color: var(--primary-dark);
   color: white;
   height: 65px;
-  font-size: 27px;
   display: flex;
   align-items: center;
-  font-family: "Roboto", sans-serif;
+  padding: 0 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  justify-content: space-between;
 }
 
-nav ul {
-  list-style-type: none;
+nav h1 {
+  font-size: 1.8rem;
+  margin: 0;
 }
 
-.gameContainer {
+nav h1 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+nav h1 a:hover {
+  color: #a7e94f;
+}
+
+.music-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.music-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.music-icon {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.game-container {
   display: flex;
-  justify-content: center;
-  margin-top: 50px;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 2rem 1rem;
+  flex-grow: 1;
 }
 
-.container {
+.game-board {
   display: grid;
   grid-template-rows: repeat(3, 10vw);
   grid-template-columns: repeat(3, 10vw);
-  font-family: "Roboto", sans-serif;
-  position: relative;
+  border: 4px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeInScale 1s ease-in-out;
+  background-color: white;
 }
 
 .box {
-  border: 2px solid black;
+  border: 2px solid var(--border-color);
   font-size: 8vw;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   animation: popIn 0.5s ease;
+  position: relative;
 }
 
 .box:hover {
-  background-color: rgb(242, 234, 250);
-  transform: scale(1.05);
+  background-color: var(--accent-color);
+  transform: scale(1.03);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .box.clicked {
   animation: bounce 0.4s ease;
 }
 
-.info {
-  font-size: 22px;
-}
-
-.gameInfo {
-  padding: 0 34px;
-  font-family: "Baloo Bhaina 2", cursive;
-  margin-top: 34px;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.gameInfo h1 {
-  font-size: 2.5rem;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.imgbox img {
-  width: 0;
-  transition: width 1s ease-in-out;
-}
-
-.br-0 {
-  border-right: 0;
-}
-
-.bl-0 {
-  border-left: 0;
-}
-
-.bt-0 {
-  border-top: 0;
-}
-
-.bb-0 {
-  border-bottom: 0;
-}
-
-#reset {
-  margin: 0 23px;
-  padding: 1px 18px;
-  background: #f3e7f9;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: "Baloo Bhaina 2";
-  font-size: 15px;
-  font-weight: bolder;
-  border: none;
-  transition: all 0.3s ease;
-}
-
-#reset:hover {
-  background-color: #e0cfee;
-  transform: scale(1.05);
+.boxtext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
 }
 
 .boxtext.X {
-  color: blue;
-  font-weight: bold;
+  color: var(--player-x-color);
   animation: appearColor 0.3s ease;
 }
 
 .boxtext.O {
-  color: red;
-  font-weight: bold;
+  color: var(--player-o-color);
   animation: appearColor 0.3s ease;
+}
+
+.box.top-left { border-top: 0; border-left: 0; }
+.box.top-center { border-top: 0; }
+.box.top-right { border-top: 0; border-right: 0; }
+
+.box.middle-left { border-left: 0; }
+.box.middle-right { border-right: 0; }
+
+.box.bottom-left { border-bottom: 0; border-left: 0; }
+.box.bottom-center { border-bottom: 0; }
+.box.bottom-right { border-bottom: 0; border-right: 0; }
+
+.box.win-highlight {
+  background-color: var(--win-highlight-color);
+  animation: winGlow 1.5s infinite alternate;
+}
+
+.game-info {
+  padding: 1.5rem 2.5rem;
+  font-family: "Baloo Bhaina 2", cursive;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+}
+
+.game-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-dark);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.game-info .controls {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.info {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  min-height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#reset {
+  padding: 0.7rem 2rem;
+  background: var(--button-bg);
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Baloo Bhaina 2", cursive;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  border: none;
+  color: var(--primary-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
+}
+
+#reset:hover {
+  background-color: var(--button-hover-bg);
+  transform: scale(1.07);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.image-display {
+  margin-top: 1.5rem;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-display img {
+  width: 0;
+  max-width: 180px;
+  height: auto;
+  transition: width 1s ease-in-out, opacity 1s ease-in-out;
+  opacity: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes appearColor {
@@ -137,17 +243,6 @@ nav ul {
   100% {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-@media screen and (max-width: 950px) {
-  .container {
-    grid-template-rows: repeat(3, 20vw);
-    grid-template-columns: repeat(3, 20vw);
-  }
-
-  .gameInfo h1 {
-    font-size: 1.5rem;
   }
 }
 
@@ -182,5 +277,109 @@ nav ul {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes winGlow {
+  0% {
+    box-shadow: 0 0 15px var(--win-highlight-color), 0 0 25px var(--win-highlight-color);
+  }
+  50% {
+    box-shadow: 0 0 25px var(--win-highlight-color), 0 0 40px var(--win-highlight-color);
+  }
+  100% {
+    box-shadow: 0 0 15px var(--win-highlight-color), 0 0 25px var(--win-highlight-color);
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .game-board {
+    grid-template-rows: repeat(3, 25vw);
+    grid-template-columns: repeat(3, 25vw);
+    width: 75vw;
+    height: 75vw;
+  }
+
+  .box {
+    font-size: 15vw;
+  }
+
+  .game-info {
+    margin-top: 1rem;
+    width: 90%;
+    max-width: 400px;
+    padding: 1rem 1.5rem;
+  }
+
+  .game-info h2 {
+    font-size: 2rem;
+  }
+
+  .info {
+    font-size: 1.4rem;
+  }
+
+  #reset {
+    font-size: 1rem;
+    padding: 0.6rem 1.8rem;
+  }
+
+  .image-display {
+    min-height: 80px;
+  }
+  .image-display img {
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+    font-size: 1.5rem;
+    height: 55px;
+  }
+
+  nav h1 {
+    font-size: 1.5rem;
+  }
+
+  .music-icon {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .game-board {
+    grid-template-rows: repeat(3, 28vw);
+    grid-template-columns: repeat(3, 28vw);
+    width: 84vw;
+    height: 84vw;
+  }
+
+  .box {
+    font-size: 18vw;
+  }
+
+  .game-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .info {
+    font-size: 1.2rem;
   }
 }
